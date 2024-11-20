@@ -10,7 +10,6 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 @MappedSuperclass
 @Getter
 @Setter
@@ -28,10 +27,10 @@ public abstract class BaseEntity {
     protected LocalDateTime modified;
 
     @CreatedBy
-    protected UUID createdBy;
+    protected Long createdBy;
 
     @LastModifiedBy
-    protected UUID modifiedBy;
+    protected Long modifiedBy;
 
     protected boolean isActive = true;
 }

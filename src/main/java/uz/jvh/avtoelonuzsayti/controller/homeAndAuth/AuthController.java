@@ -7,9 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import uz.jvh.avtoelonuzsayti.domain.DTO.request.LoginDto;
-import uz.jvh.avtoelonuzsayti.domain.DTO.request.UserCreateDTO;
-import uz.jvh.avtoelonuzsayti.domain.DTO.response.UserResponse;
+import uz.jvh.avtoelonuzsayti.domain.request.LoginDto;
+import uz.jvh.avtoelonuzsayti.domain.request.UserCreateDTO;
+import uz.jvh.avtoelonuzsayti.domain.response.UserResponse;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserRole;
 import uz.jvh.avtoelonuzsayti.service.UserService;
 

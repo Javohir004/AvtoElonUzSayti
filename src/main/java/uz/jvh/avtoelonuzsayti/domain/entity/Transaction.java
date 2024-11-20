@@ -30,4 +30,10 @@ public class Transaction extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "car_id", nullable = false) // Sotilgan mashinaga bog'lash
+    private Car car;
+
+
 }

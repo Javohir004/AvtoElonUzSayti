@@ -11,6 +11,8 @@ import uz.jvh.avtoelonuzsayti.domain.enums.CarStatus;
 import uz.jvh.avtoelonuzsayti.domain.enums.Transmission;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -47,6 +49,9 @@ public class Car extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false) // Mashinaning egasini ko'rsatadi
     private User owner;
+
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CarImage> images = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private CarStatus status;

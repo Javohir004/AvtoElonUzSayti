@@ -1,4 +1,4 @@
-package uz.jvh.avtoelonuzsayti.domain.DTO.request;
+package uz.jvh.avtoelonuzsayti.domain.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

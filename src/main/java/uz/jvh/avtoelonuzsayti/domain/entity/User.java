@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserRole;
+import uz.jvh.avtoelonuzsayti.domain.enums.UserState;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -36,12 +38,11 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     private String phoneNumber;
 
-    private boolean enabled;
-
     private BigDecimal balance;
 
     @Column(nullable = false)
     private String address;
 
-    private String verificationToken;
+    @Enumerated(EnumType.STRING)
+    private UserState state = UserState.ACTIVE;
 }
