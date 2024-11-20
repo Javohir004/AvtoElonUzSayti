@@ -53,5 +53,4 @@ public class Car extends BaseEntity {
 
     private String notes;
 
-
 }

@@ -1,9 +1,17 @@
 package uz.jvh.avtoelonuzsayti.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "car_images")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CarImage extends BaseEntity {
 
     @ManyToOne
@@ -14,7 +22,7 @@ public class CarImage extends BaseEntity {
     @Column(nullable = false)
     private byte[] imageData; // Rasmning binary ma'lumotlari
 
-    @Column(nullable = false)
+    @Column(unique = true)
     private String fileName; // Rasm fayl nomi
 
     private long fileSize; // Fayl hajmi

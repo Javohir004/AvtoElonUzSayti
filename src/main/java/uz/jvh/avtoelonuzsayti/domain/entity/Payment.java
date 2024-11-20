@@ -1,20 +1,31 @@
 package uz.jvh.avtoelonuzsayti.domain.entity;
-
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import uz.jvh.avtoelonuzsayti.domain.enums.PamentStatus;
 import uz.jvh.avtoelonuzsayti.domain.enums.PaymentMethod;
+import uz.jvh.avtoelonuzsayti.domain.enums.PaymentStatus;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payments")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Payment extends BaseEntity {
 
-    @ManyToOne
+//    @ManyToOne
+//    @JoinColumn(name = "transaction_id", nullable = false)
+//    private Transaction transaction; // To'lovga tegishli tranzaksiya
+
+    @OneToOne
     @JoinColumn(name = "transaction_id", nullable = false)
-    private Transaction transaction; // To'lovga tegishli tranzaksiya
+    private Transaction transaction;
+
 
     @Column(nullable = false)
     private double amount; // To'lov miqdori
@@ -26,5 +37,5 @@ public class Payment extends BaseEntity {
     private LocalDateTime paymentDate; // To'lov sanasi
 
     @Enumerated(EnumType.STRING)
-    private PamentStatus status; // To'lov holati
+    private PaymentStatus status; // To'lov holati
 }
