@@ -52,6 +52,8 @@ public class AuthController {
             return "owner-page";
         }else if(user.getRole() == UserRole.ADMIN){
             return "admin-page";
+        } else if (user.getRole() == UserRole.USER) {
+            return "user/user-menu";
         }
         return "home-page";
     }

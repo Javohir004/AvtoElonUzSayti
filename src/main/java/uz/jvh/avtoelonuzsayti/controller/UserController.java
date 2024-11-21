@@ -1,7 +1,5 @@
 package uz.jvh.avtoelonuzsayti.controller;
-
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,10 +39,7 @@ public class UserController {
         List<UserResponse> users = userService.findByRole(role);
         model.addAttribute("users", users);
         return "show-users";
-
     }
-
-
 
     @PostMapping("/create-user")
     public String createUser(UserCreateDTO userCreateDTO) {
@@ -70,6 +65,20 @@ public class UserController {
     }
 
 
+    @PostMapping( "/update-user")
+    public String update(@RequestParam(name = "userId") Long userID , UserCreateDTO updatedUser, Model model) {
+        userService.update(updatedUser,userID);
+        List<UserResponse> users = userService.findByRole(updatedUser.getRole());
+        model.addAttribute("users", users);
+        return "show-users";
+    }
+
+    @PostMapping("/UnBlock-user")
+    public String unBlockUser(@RequestParam(name = "userId") Long userID , Model model) {
+        userService.unblockUser(userID);
+        return "owner-page";
+    }
+
     @PostMapping("/block-user")
     public String blockUser(@RequestParam(name = "userId") Long userID , Model model) {
         userService.blockUser(userID);
@@ -84,25 +93,15 @@ public class UserController {
     }
 
     @GetMapping("/search-user")
-    public String searchUser(@RequestParam UserSearchRequest searchRequest, Model model) {
-        UserResponse userResponse = userService.searchUser(searchRequest);
-        model.addAttribute("userResponse", userResponse);
-        return "search-user";
+    public String searchUser() {
+        return "search-users";
     }
 
-    @PostMapping("/UnBlock-user")
-    public String unBlockUser(@RequestParam(name = "userId") Long userID , Model model) {
-        userService.unblockUser(userID);
-        return "owner-page";
-    }
-
-
-    @PostMapping( "/update-user")
-    public String update(@RequestParam(name = "userId") Long userID , UserCreateDTO updatedUser, Model model) {
-        userService.update(updatedUser,userID);
-        List<UserResponse> users = userService.findByRole(updatedUser.getRole());
-        model.addAttribute("users", users);
-        return "show-users";
+    @PostMapping("/search-user")
+    public String searchUser(UserSearchRequest userSearchRequest, Model model) {
+        List<UserResponse> userResponses = userService.searchUser(userSearchRequest);
+        model.addAttribute("users", userResponses);
+        return "search-users";
     }
 
 

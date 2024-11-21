@@ -1,6 +1,8 @@
 package uz.jvh.avtoelonuzsayti.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import uz.jvh.avtoelonuzsayti.domain.entity.User;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserRole;
@@ -24,6 +26,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findUsersByState(UserState state);
 
-    Optional<User> findUsersByUsernameAndEmailAndRole(String username, String email, UserRole role);
+
+
+
+    @Query("SELECT u FROM User u WHERE " +
+            "(LOWER(u.username) LIKE LOWER(CONCAT('%', :username, '%')) AND u.role = :role) " +
+            "OR LOWER(u.email) LIKE LOWER(CONCAT('%', :email, '%'))")
+    List<User> findUsersByUsernameEmailAndRole(@Param("username") String username,
+                                               @Param("email") String email,
+                                               @Param("role") UserRole role);
+
+
 
 }

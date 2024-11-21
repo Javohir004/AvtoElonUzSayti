@@ -1,6 +1,7 @@
 package uz.jvh.avtoelonuzsayti.domain.request;
 import lombok.*;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserRole;
+import uz.jvh.avtoelonuzsayti.domain.enums.UserState;
 
 
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ public class UserCreateDTO {
     private String phoneNumber;
     private BigDecimal balance;
     private String address;
+    private UserState userState;
     private String verificationToken;
 
 }

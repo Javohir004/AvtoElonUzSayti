@@ -18,7 +18,6 @@ public class PaymentRequest {
 
     private Long transactionId;
 
-
     private double amount; // To'lov miqdori
 
     private PaymentMethod paymentMethod; // To'lov usuli (naqd, karta, va h.k.)

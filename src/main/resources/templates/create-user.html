@@ -22,7 +22,7 @@
             <select id="role" name="role" required>
                 <option value="ADMIN">Admin</option>
                 <option value="USER">User</option>
-                <option value="MANAGER">Manager</option>
+                <option value="OWNER">Owner</option>
             </select>
 
             <label for="birthDate">Birth Date:</label>
@@ -52,7 +52,7 @@
     <!-- Submit and Return Buttons -->
     <div class="button-container">
         <button type="submit">Create User</button>
-        <button type="button" onclick="window.location.href='/user/return'">Return</button>
+        <button type="button" onclick="window.location.href='/api/user/return'">Return</button>
     </div>
 </form>
 </body>

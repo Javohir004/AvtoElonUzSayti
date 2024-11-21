@@ -1,0 +1,77 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../photo/4d10364e35902affbc360646efe1de64.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Space between the navbar items */
+    z-index: 1000;
+    padding: 10px 20px;
+}
+
+/* Menu items */
+.navbar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-start; /* Align buttons to the left */
+}
+
+.navbar-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.navbar-menu li a:hover {
+    background-color: #575757;
+}
+
+/* Back button positioning */
+.back-btn {
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    background-color: #444;
+    transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #575757;
+}
+
+/* Align the back button to the right */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensures the back button aligns vertically */
+}
+
+/* Body padding to ensure navbar doesn't overlap content */
+body {
+    padding-top: 60px; /* Add some space below the fixed navbar */
+}

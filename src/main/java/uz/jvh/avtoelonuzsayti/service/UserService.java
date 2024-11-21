@@ -48,11 +48,12 @@ public class UserService {
         return mapToResponse(user);
     }
 
-    public UserResponse searchUser(UserSearchRequest userSearchRequest) {
-        User user = userRepository.findUsersByUsernameAndEmailAndRole(userSearchRequest.getUsername(),
+    public List<UserResponse> searchUser(UserSearchRequest userSearchRequest) {
+        List<User> users = userRepository.findUsersByUsernameEmailAndRole(userSearchRequest.getUsername(),
                 userSearchRequest.getEmail(),
-                userSearchRequest.getRole()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return mapToResponse(user);
+                userSearchRequest.getRole());
+        return users.stream().map((user) -> mapToResponse(user)).
+                collect(Collectors.toList());
     }
 
     public List<UserResponse> getBlockedUsers() {
@@ -65,9 +66,12 @@ public class UserService {
     public UserResponse update(UserCreateDTO userDto , Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User with ID " + id + " not found"));
+        if(userDto.getPassword() != null) {
+            user.setPassword(userDto.getPassword());
+        }
+        user.setState(userDto.getUserState());
         user.setSurname(userDto.getSurname());
         user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
         user.setEmail(userDto.getEmail());
         user.setRole(userDto.getRole());
         user.setBalance(userDto.getBalance());

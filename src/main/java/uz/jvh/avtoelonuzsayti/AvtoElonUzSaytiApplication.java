@@ -8,6 +8,10 @@ public class AvtoElonUzSaytiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AvtoElonUzSaytiApplication.class, args);
+
+
+
+
     }
 
 }

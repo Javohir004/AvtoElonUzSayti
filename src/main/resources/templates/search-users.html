@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Users</title>
+    <link rel="stylesheet" href="/css/search-user.css">
+    <style>
+        .return-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .return-button:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label, input, select {
+            font-size: 14px;
+        }
+
+        button {
+            font-size: 14px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body class="search">
+
+<div class="container">
+    <!-- Return Button -->
+    <a href="/api/user/return" class="return-button">Return</a>
+
+    <!-- Search Users Menu -->
+    <h2>Search Users</h2>
+    <form action="/api/user/search-user" method="post">
+        <!-- Username -->
+        <div class="form-group">
+            <input type="text" id="username" name="username" placeholder="Username" style="width: 100%;">
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <input type="email" id="email" name="email" placeholder="Email" style="width: 100%;">
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+            <select id="role" name="role" style="width: 100%;">
+                <option value="">Select Role</option>
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="OWNER">OWNER</option>
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" style="width: 100%;">Search</button>
+    </form>
+
+    <h3>Users Found:</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Surname</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Birth Date</th>
+            <th>Phone Number</th>
+            <th>Balance</th>
+            <th>Address</th>
+            <th>User State</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Topilgan foydalanuvchilarni ko'rsatish -->
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.surname}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.birthDate}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.balance}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.userState}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

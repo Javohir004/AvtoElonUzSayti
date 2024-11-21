@@ -1,0 +1,215 @@
+/* Overall page styling */
+body.search {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;  /* Very dark background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #e0e0e0;  /* Soft text color for better readability */
+}
+
+/* Container background */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background-color: #1e1e1e; /* Darker container background */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* Softer shadow */
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Header styling */
+h2 {
+    font-size: 2.5rem;
+    color: #d1d1d1;  /* Lighter text for header */
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Form styles */
+form {
+    display: grid;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* Form group */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+label {
+    font-size: 1.1rem;
+    color: #cfcfcf;  /* Softer text color */
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* Inputs and selects */
+input[type="text"],
+input[type="email"],
+select {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #555; /* Slightly lighter border */
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #333;  /* Dark background for inputs */
+    color: #e0e0e0;  /* Light text for inputs */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 5px rgba(108, 99, 255, 0.6);
+}
+
+/* Button styling */
+button {
+    padding: 12px 24px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    max-width: 150px;
+    align-self: center;
+}
+
+button:hover {
+    background-color: #5a54e4;
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+}
+
+thead {
+    background-color: #444;  /* Dark header background */
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+th,
+td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+    font-size: 1rem;
+}
+
+th {
+    font-weight: 600;
+}
+
+td {
+    color: #bbb;  /* Softer color for table data */
+}
+
+tbody tr:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #2d2d2d;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #222;
+}
+
+/* No users found message */
+div.no-users {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 20px;
+}
+
+/* Footer section for small text or actions */
+footer {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #aaa;
+    text-align: center;
+}
+
+footer a {
+    color: #6c63ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #5a54e4;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        width: 95%;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    th,
+    td {
+        padding: 10px 12px;
+    }
+}
+
+/* Animation for loading spinner */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #555;
+    border-top: 5px solid #6c63ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
