@@ -1,4 +1,4 @@
-package uz.jvh.avtoelonuzsayti.controller.homeAndAuth;
+package uz.jvh.avtoelonuzsayti.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

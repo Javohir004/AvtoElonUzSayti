@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Details</title>
+  <link rel="stylesheet" href="/css/show-cars.css">
+</head>
+<body>
+<div class="container">
+  <div class="car-card">
+    <h1>Car Details</h1>
+
+    <!-- Mashina haqida -->
+    <h2>${carResponse.brand} - ${carResponse.model}</h2>
+    <p><strong>Transmission:</strong> ${carResponse.transmission}</p>
+    <p><strong>Horse Power:</strong> ${carResponse.horsePower}</p>
+    <p><strong>Engine Volume:</strong> ${carResponse.engineV}</p>
+    <p><strong>Created Year:</strong> ${carResponse.createdYear}</p>
+    <p><strong>Runs:</strong> ${carResponse.runs} km</p>
+    <p><strong>Price:</strong> $${carResponse.price}</p>
+    <p><strong>Status:</strong> ${carResponse.status}</p>
+    <p><strong>Notes:</strong> ${carResponse.notes}</p>
+
+    <!-- Egasi haqida -->
+    <h3>Owner Information</h3>
+    <p><strong>Name:</strong> ${carResponse.ownerName}</p>
+    <p><strong>Email:</strong> ${carResponse.ownerEmail}</p>
+    <p><strong>Phone:</strong> ${carResponse.ownerPhone}</p>
+    <p><strong>Address:</strong> ${carResponse.ownerAddress}</p>
+
+    <!-- Rasmlar -->
+    <h3>Car Images</h3>
+    <div class="car-images">
+      <c:forEach var="image" items="${carResponse.carPictures}">
+        <img src="data:image/png;base64,${image}" alt="Car Image" class="car-image">
+      </c:forEach>
+    </div>
+  </div>
+</div>
+</body>
+</html>

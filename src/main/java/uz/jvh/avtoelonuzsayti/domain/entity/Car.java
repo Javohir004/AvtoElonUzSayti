@@ -37,7 +37,6 @@ public class Car extends BaseEntity {
     @Column(nullable = false)
     private String engineV;
 
-    @CreationTimestamp
     private LocalDate createdYear;
 
     @Column(nullable = false)
@@ -47,11 +46,13 @@ public class Car extends BaseEntity {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false) // Mashinaning egasini ko'rsatadi
+    @JoinColumn(name = "owner_id") // Mashinaning egasini ko'rsatadi
     private User owner;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id") // Bu yerda car_id ustuni yaratishni xohlaganingizni tekshirib ko'ring
     private List<CarImage> images = new ArrayList<>();
+
 
     @Enumerated(EnumType.STRING)
     private CarStatus status;

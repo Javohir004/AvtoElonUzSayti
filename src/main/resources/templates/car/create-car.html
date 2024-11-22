@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car</title>
+    <link rel="stylesheet" href="/css/create-car.css">
+</head>
+<body>
+<form action="/api/car/create-car" method="post" enctype="multipart/form-data">
+    <!-- Flex container for two columns -->
+    <div class="form-container">
+        <!-- First Column -->
+        <div class="form-column">
+            <!-- Car Model -->
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" required>
+
+            <!-- Car Brand -->
+            <label for="brand">Brand:</label>
+            <select id="brand" name="brand" required>
+                <th:block th:each="brand : ${CarBrand}">
+                    <option th:value="${brand}" th:text="${brand}"></option>
+                </th:block>
+            </select>
+
+            <!-- Transmission -->
+            <label for="transmission">Transmission:</label>
+            <select id="transmission" name="transmission" required>
+                <th:block th:each="transmission : ${transmission}">
+                    <option th:value="${transmission}" th:text="${transmission}"></option>
+                </th:block>
+            </select>
+
+            <!-- Horse Power -->
+            <label for="horsePower">Horse Power:</label>
+            <input type="text" id="horsePower" name="horsePower" required>
+
+            <!-- Engine Volume -->
+            <label for="engineV">Engine Volume:</label>
+            <input type="text" id="engineV" name="engineV" required>
+
+            <!-- Runs -->
+            <label for="runs">Runs:</label>
+            <input type="number" id="runs" name="runs" required>
+
+            <!-- Price -->
+            <label for="price">Price:</label>
+            <input type="number" step="0.01" id="price" name="price" required>
+        </div>
+
+        <!-- Second Column -->
+        <div class="form-column">
+            <!-- Created Year -->
+            <label for="createdYear">Created Year:</label>
+            <input type="date" id="createdYear" name="createdYear" required>
+
+            <!-- Car Status -->
+            <label for="status">Car Status:</label>
+            <select id="status" name="status" required>
+                <option value="AVAILABLE">AVAILABLE</option>
+                <option value="SOLD">SOLD</option>
+            </select>
+
+            <!-- Notes -->
+            <label for="notes">Notes:</label>
+            <textarea id="notes" name="notes"></textarea>
+
+            <!-- Upload Images -->
+            <label for="images">Upload Images:</label>
+            <!-- Only allow image files -->
+            <input type="file" id="images" name="images" multiple accept="image/*">
+
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="button-container">
+        <button type="submit">Submit</button>
+        <button type="button" onclick="window.location.href='/api/user/return2'">Back</button>
+    </div>
+</form>
+</body>
+</html>

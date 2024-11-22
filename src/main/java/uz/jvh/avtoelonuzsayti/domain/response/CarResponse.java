@@ -1,6 +1,7 @@
 package uz.jvh.avtoelonuzsayti.domain.response;
 
 import lombok.*;
+import uz.jvh.avtoelonuzsayti.domain.entity.CarImage;
 import uz.jvh.avtoelonuzsayti.domain.enums.CarBrand;
 import uz.jvh.avtoelonuzsayti.domain.enums.CarStatus;
 import uz.jvh.avtoelonuzsayti.domain.enums.Transmission;
@@ -24,10 +25,13 @@ public class CarResponse {
     private LocalDate createdYear;
     private Integer runs;
     private double price;
-    private Long ownerId;
     private CarStatus status;
     private String notes;
+    private List<String> carPictures;
 
-    private List<PictureResponse> carPictures;
+    private String ownerName;
+    private String ownerEmail;
+    private String ownerPhone;
+    private String ownerAddress;
 
 }

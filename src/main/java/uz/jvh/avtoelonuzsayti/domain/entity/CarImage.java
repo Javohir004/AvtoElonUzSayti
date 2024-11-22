@@ -14,9 +14,6 @@ import lombok.Setter;
 @Setter
 public class CarImage extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "car_id", nullable = false)
-    private Car car; // Rasmni bog'lash uchun mashina
 
     @Lob
     @Column(nullable = false)

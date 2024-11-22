@@ -27,6 +27,11 @@ public class UserController {
     public String index() {
         return "owner-page";
     }
+    @GetMapping("/return2")
+    public String index2() {
+        return "/user/user-menu";
+    }
+
 
     @GetMapping("/create-user")
     public String createUser() {
@@ -40,6 +45,7 @@ public class UserController {
         model.addAttribute("users", users);
         return "show-users";
     }
+
 
     @PostMapping("/create-user")
     public String createUser(UserCreateDTO userCreateDTO) {
