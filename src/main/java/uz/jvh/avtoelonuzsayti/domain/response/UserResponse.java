@@ -22,7 +22,8 @@ public class UserResponse {
     private String email;
     private LocalDate birthDate;
     private String phoneNumber;
-    private BigDecimal balance;
+    private Double balance;
     private String address;
     private UserState userState;
+    private String password;
 }

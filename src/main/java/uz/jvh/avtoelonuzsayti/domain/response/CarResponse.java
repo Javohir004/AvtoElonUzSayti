@@ -1,12 +1,12 @@
 package uz.jvh.avtoelonuzsayti.domain.response;
 
 import lombok.*;
-import uz.jvh.avtoelonuzsayti.domain.entity.CarImage;
 import uz.jvh.avtoelonuzsayti.domain.enums.CarBrand;
 import uz.jvh.avtoelonuzsayti.domain.enums.CarStatus;
 import uz.jvh.avtoelonuzsayti.domain.enums.Transmission;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -27,7 +27,8 @@ public class CarResponse {
     private double price;
     private CarStatus status;
     private String notes;
-    private List<String> carPictures;
+    private List<String> imagePaths = new ArrayList<>();
+
 
     private String ownerName;
     private String ownerEmail;

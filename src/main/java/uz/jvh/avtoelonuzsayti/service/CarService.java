@@ -1,5 +1,4 @@
 package uz.jvh.avtoelonuzsayti.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.jvh.avtoelonuzsayti.domain.entity.Car;
@@ -8,10 +7,7 @@ import uz.jvh.avtoelonuzsayti.domain.request.CarRequest;
 import uz.jvh.avtoelonuzsayti.domain.response.CarResponse;
 import uz.jvh.avtoelonuzsayti.repository.CarRepository;
 import uz.jvh.avtoelonuzsayti.repository.UserRepository;
-
-import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,10 +52,7 @@ public class CarService {
         carResponse.setStatus(car.getStatus());
         carResponse.setTransmission(car.getTransmission());
         carResponse.setPrice(car.getPrice());
-
-        carResponse.setCarPictures(car.getImages().stream()
-                .map(carImage -> Base64.getEncoder().encodeToString(carImage.getImageData()))
-                .toList());
+        carResponse.setImagePaths(car.getImagePaths());
 
         User owner = car.getOwner();
         carResponse.setOwnerName(owner.getUsername());
@@ -76,7 +69,7 @@ public class CarService {
         Car car = new Car();
         car.setBrand(carRequest.getBrand());
         car.setModel(carRequest.getModel());
-        car.setImages(carRequest.getImages());
+        car.setImagePaths(carRequest.getImagePaths());
         car.setCreatedYear(carRequest.getCreatedYear());
         car.setEngineV(carRequest.getEngineV());
         car.setHorsePower(carRequest.getHorsePower());

@@ -1,5 +1,6 @@
 package uz.jvh.avtoelonuzsayti.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import uz.jvh.avtoelonuzsayti.service.UserService;
 @RequestMapping("/auth")
 @AllArgsConstructor
 public class AuthController {
+
 
     @Autowired
     private final UserService userService;
@@ -44,17 +46,35 @@ public class AuthController {
         return "home-page";
     }
 
-
     @PostMapping("/login")
-    public String login(LoginDto loginDto) {
-        UserResponse user = userService.login(loginDto);
-        if(user.getRole() == UserRole.OWNER){
-            return "owner-page";
-        }else if(user.getRole() == UserRole.ADMIN){
-            return "admin-page";
-        } else if (user.getRole() == UserRole.USER) {
-            return "user/user-menu";
+    public String login(LoginDto loginDto, HttpSession session) {
+        UserResponse login = userService.login(loginDto);
+        if (login != null && loginDto.getPassword().equals(login.getPassword())) {
+            session.setAttribute("userId", login.getId());
+            if (login.getRole() == UserRole.OWNER) {
+                return "owner-page";
+            } else if (login.getRole() == UserRole.ADMIN) {
+                return "admin-page";
+            } else if (login.getRole() == UserRole.USER) {
+                return "user/user-menu";
+            }
         }
         return "home-page";
     }
+
+
+//    @PostMapping("/login")
+//    public String login(LoginDto loginDto , HttpSession session) {
+//        UserResponse user = userService.login(loginDto);
+//        session.setAttribute("userId", user.getId());
+//
+//        if(user.getRole() == UserRole.OWNER){
+//            return "owner-page";
+//        }else if(user.getRole() == UserRole.ADMIN){
+//            return "admin-page";
+//        } else if (user.getRole() == UserRole.USER) {
+//            return "user/user-menu";
+//        }
+//        return "home-page";
+//    }
 }

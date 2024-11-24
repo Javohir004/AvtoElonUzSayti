@@ -20,7 +20,7 @@ public class UserCreateDTO {
     private String email;
     private LocalDate birthDate;
     private String phoneNumber;
-    private BigDecimal balance;
+    private double balance;
     private String address;
     private UserState userState;
     private String verificationToken;

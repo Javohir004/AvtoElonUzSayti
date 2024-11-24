@@ -1,5 +1,7 @@
 package uz.jvh.avtoelonuzsayti.controller;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,6 +72,24 @@ public class UserController {
         return "update-user";
     }
 
+    @GetMapping("/add-balance")
+    public String addBalance(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        UserResponse user = userService.findById(userId);
+        model.addAttribute("money", user.getBalance());
+        return "balance";
+    }
+
+    @PostMapping("/add-balance")
+    public String addBalance(@RequestParam Double amount , Model model , HttpSession session) {
+        Long userId =(Long) session.getAttribute("userId");
+        if (amount <= 0) {
+            model.addAttribute("message", "Iltimos, ijobiy miqdorni kiriting!");
+        }
+        Double v = userService.addBalance(amount, userId);
+        model.addAttribute("money", v);
+        return "/balance";
+    }
 
     @PostMapping( "/update-user")
     public String update(@RequestParam(name = "userId") Long userID , UserCreateDTO updatedUser, Model model) {
@@ -102,6 +122,8 @@ public class UserController {
     public String searchUser() {
         return "search-users";
     }
+
+
 
     @PostMapping("/search-user")
     public String searchUser(UserSearchRequest userSearchRequest, Model model) {

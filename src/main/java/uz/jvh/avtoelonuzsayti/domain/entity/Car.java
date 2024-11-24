@@ -49,9 +49,10 @@ public class Car extends BaseEntity {
     @JoinColumn(name = "owner_id") // Mashinaning egasini ko'rsatadi
     private User owner;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_id") // Bu yerda car_id ustuni yaratishni xohlaganingizni tekshirib ko'ring
-    private List<CarImage> images = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "car_images", joinColumns = @JoinColumn(name = "car_id"))
+    @Column(name = "image_path")
+    private List<String> imagePaths = new ArrayList<>();
 
 
     @Enumerated(EnumType.STRING)

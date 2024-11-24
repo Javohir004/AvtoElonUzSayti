@@ -11,6 +11,7 @@ import uz.jvh.avtoelonuzsayti.domain.entity.User;
 import uz.jvh.avtoelonuzsayti.exception.UsernameNotFoundException;
 import uz.jvh.avtoelonuzsayti.repository.UserRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,9 +21,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     public void save(UserCreateDTO userDto) {
         User user = mapToUser(userDto);
+
         userRepository.save(user);
+    }
+
+    public Double addBalance(Double amount , Long userId) {
+         User user = userRepository.findById(userId).orElseThrow(()
+                 -> new UsernameNotFoundException("User not found"));
+         user.setBalance(user.getBalance() + amount);
+         userRepository.save(user);
+         return user.getBalance();
     }
 
     public UserResponse findById(Long id) {
@@ -94,6 +105,7 @@ public class UserService {
     public UserResponse mapToResponse(User user) {
         UserResponse userResponse = new UserResponse();
         userResponse.setId(user.getId());
+        userResponse.setPassword(user.getPassword());
         userResponse.setUsername(user.getUsername());
         userResponse.setSurname(user.getSurname());
         userResponse.setEmail(user.getEmail());

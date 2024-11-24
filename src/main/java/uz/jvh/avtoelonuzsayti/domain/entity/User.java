@@ -38,7 +38,7 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     private String phoneNumber;
 
-    private BigDecimal balance;
+    private Double balance;
 
     @Column(nullable = false)
     private String address;
