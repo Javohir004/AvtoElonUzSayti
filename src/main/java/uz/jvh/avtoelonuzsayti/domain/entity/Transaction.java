@@ -35,5 +35,9 @@ public class Transaction extends BaseEntity {
     @JoinColumn(name = "car_id", nullable = false) // Sotilgan mashinaga bog'lash
     private Car car;
 
+    @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false) // Sotuvchi
+    private User seller;
+
 
 }

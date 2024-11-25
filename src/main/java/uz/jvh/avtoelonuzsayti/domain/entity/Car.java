@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 import uz.jvh.avtoelonuzsayti.domain.enums.CarBrand;
 import uz.jvh.avtoelonuzsayti.domain.enums.CarStatus;
 import uz.jvh.avtoelonuzsayti.domain.enums.Transmission;

@@ -18,11 +18,9 @@ import java.time.LocalDateTime;
 @Setter
 public class Payment extends BaseEntity {
 
-
     @OneToOne
     @JoinColumn(name = "transaction_id", nullable = false)
     private Transaction transaction;
-
 
     @Column(nullable = false)
     private double amount; // To'lov miqdori

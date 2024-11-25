@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserRole;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserState;
-
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
