@@ -1,7 +1,6 @@
 package uz.jvh.avtoelonuzsayti.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserRole;
+import uz.jvh.avtoelonuzsayti.domain.enums.UserState;
 import uz.jvh.avtoelonuzsayti.domain.request.UserCreateDTO;
 import uz.jvh.avtoelonuzsayti.domain.request.UserSearchRequest;
 import uz.jvh.avtoelonuzsayti.domain.response.UserResponse;
@@ -78,6 +78,23 @@ public class UserController {
         UserResponse user = userService.findById(userId);
         model.addAttribute("money", user.getBalance());
         return "balance";
+    }
+
+    @GetMapping("/user-profile")
+    public String userProfile(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        UserResponse user = userService.findById(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("state", UserState.values());
+        return "/user/user-profile";
+    }
+
+
+    @PostMapping("/user-profile")
+    public String userProfile(UserCreateDTO userCreateDTO, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        userService.update(userCreateDTO, userId);
+        return "/user/user-menu";
     }
 
     @PostMapping("/add-balance")

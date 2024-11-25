@@ -77,7 +77,7 @@ public class UserService {
     public UserResponse update(UserCreateDTO userDto , Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User with ID " + id + " not found"));
-        if(userDto.getPassword() != null) {
+        if(userDto.getPassword() != null && !userDto.getPassword().isBlank() ) {
             user.setPassword(userDto.getPassword());
         }
         user.setState(userDto.getUserState());

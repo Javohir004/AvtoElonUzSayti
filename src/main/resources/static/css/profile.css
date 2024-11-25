@@ -1,0 +1,68 @@
+body {
+    background-image: url('../photo/2875b8f6b84c5ccbffe2e6d817e5fd03.jpg'); /* Yangi fon rasmi */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.7); /* Yarim shaffof qora fon */
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h2 {
+    color: #ffffff;
+}
+
+label {
+    color: #ffffff;
+}
+
+.text-muted {
+    color: #cccccc !important;
+}
+
+.btn-secondary {
+    color: #ffffff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+textarea, input, select {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #000;
+}
+
+textarea::placeholder,
+input::placeholder {
+    color: #6c757d;
+}
+
+/* Two-column form layout */
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Ikki ustunli layout */
+    gap: 20px;
+}
+
+.row .mb-3 {
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    /* Mobil uchun bitta ustun */
+    .row {
+        grid-template-columns: 1fr;
+    }
+}

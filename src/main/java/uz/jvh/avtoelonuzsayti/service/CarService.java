@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.jvh.avtoelonuzsayti.domain.entity.Car;
 import uz.jvh.avtoelonuzsayti.domain.entity.User;
+import uz.jvh.avtoelonuzsayti.domain.enums.CarStatus;
 import uz.jvh.avtoelonuzsayti.domain.request.CarRequest;
 import uz.jvh.avtoelonuzsayti.domain.response.CarResponse;
 import uz.jvh.avtoelonuzsayti.repository.CarRepository;
@@ -27,14 +28,14 @@ public class CarService {
     }
 
     public List<CarResponse> findCarByOwnerID(Long ownerID) {
-        List<Car> byOwnerId = carRepository.findByOwnerId(ownerID);
+        List<Car> byOwnerId = carRepository.findByOwnerIdAndIsActiveTrue(ownerID);
         return byOwnerId.stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
 
     public List<CarResponse> getAllCars() {
-        List<Car> cars = carRepository.findAll();
+        List<Car> cars = carRepository.findCarsByStatusAndIsActiveTrue(CarStatus.AVAILABLE);
         return cars.stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
@@ -42,6 +43,7 @@ public class CarService {
 
     private CarResponse mapToResponse(Car car){
         CarResponse carResponse = new CarResponse();
+        carResponse.setId(car.getId());
         carResponse.setBrand(car.getBrand());
         carResponse.setModel(car.getModel());
         carResponse.setCreatedYear(car.getCreatedYear());

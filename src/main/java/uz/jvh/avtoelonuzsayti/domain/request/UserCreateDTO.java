@@ -2,9 +2,6 @@ package uz.jvh.avtoelonuzsayti.domain.request;
 import lombok.*;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserRole;
 import uz.jvh.avtoelonuzsayti.domain.enums.UserState;
-
-
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -20,9 +17,7 @@ public class UserCreateDTO {
     private String email;
     private LocalDate birthDate;
     private String phoneNumber;
-    private double balance;
+    private double balance = 100;
     private String address;
     private UserState userState;
-    private String verificationToken;
-
 }

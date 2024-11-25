@@ -12,6 +12,7 @@ import uz.jvh.avtoelonuzsayti.domain.enums.Transmission;
 import uz.jvh.avtoelonuzsayti.domain.request.CarRequest;
 import uz.jvh.avtoelonuzsayti.domain.response.CarResponse;
 import uz.jvh.avtoelonuzsayti.service.CarService;
+import uz.jvh.avtoelonuzsayti.service.UserService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,6 +29,8 @@ public class CarController {
 
     @Autowired
     private CarService carService;
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/create-car" )
@@ -73,5 +76,11 @@ public class CarController {
         return "/car/show-cars"; // car-details.html sahifasini ko'rsatish
     }
 
+    @GetMapping("/get-selling-cars")
+    public String getSellingCars(Model model , HttpSession session) {
+        List<CarResponse> cars = carService.getAllCars();
+        model.addAttribute("cars", cars);
+        return "/car/buy-car";
+    }
 
 }

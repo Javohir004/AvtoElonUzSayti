@@ -1,0 +1,16 @@
+body {
+    background-image: url('../photo/2875b8f6b84c5ccbffe2e6d817e5fd03.jpg');
+    background-size: cover; /* Rasmni ekranga moslashtiradi */
+    background-repeat: no-repeat; /* Takrorlanishni oldini oladi */
+    background-position: center; /* Rasmni markazlashtiradi */
+    min-height: 100vh; /* To'liq ekran balandligini qamrab oladi */
+    margin: 0;
+    font-family: Arial, sans-serif; /* Sahifa uchun umumiy shrift */
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.8); /* Oq rangli fon, shaffof */
+    border-radius: 10px; /* Burchaklarni yumaloqlash */
+    padding: 20px; /* Ichki bo'sh joy */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Yengil soya */
+}
