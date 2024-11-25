@@ -52,7 +52,7 @@ public class AuthController {
         if (login != null && loginDto.getPassword().equals(login.getPassword())) {
             session.setAttribute("userId", login.getId());
             if (login.getRole() == UserRole.OWNER) {
-                return "owner-page";
+                return "/owner/owner-page";
             } else if (login.getRole() == UserRole.ADMIN) {
                 return "admin-page";
             } else if (login.getRole() == UserRole.USER) {

@@ -27,8 +27,9 @@ public class UserController {
 
     @GetMapping("/return")
     public String index() {
-        return "owner-page";
+        return "/owner/owner-page";
     }
+
     @GetMapping("/return2")
     public String index2() {
         return "/user/user-menu";
@@ -37,7 +38,7 @@ public class UserController {
 
     @GetMapping("/create-user")
     public String createUser() {
-        return "create-user";
+        return "/owner/create-user";
     }
 
 
@@ -45,14 +46,14 @@ public class UserController {
     public String getUsersByRole(@RequestParam("role") UserRole role, Model model) {
         List<UserResponse> users = userService.findByRole(role);
         model.addAttribute("users", users);
-        return "show-users";
+        return "/owner/show-users";
     }
 
 
     @PostMapping("/create-user")
     public String createUser(UserCreateDTO userCreateDTO) {
         userService.save(userCreateDTO);
-        return "owner-page";
+        return "/owner/owner-page";
     }
 
 
@@ -61,7 +62,7 @@ public class UserController {
         UserResponse user = userService.deleteUser(userId);
         List<UserResponse> users = userService.findByRole(user.getRole());
         model.addAttribute("users", users);
-        return "show-users";
+        return "/owner/show-users";
     }
 
     ///user/update-user
@@ -69,7 +70,7 @@ public class UserController {
     public String update(@RequestParam(name = "userId") Long userID , Model model) {
         UserResponse user = userService.findById(userID);
         model.addAttribute("user", user);
-        return "update-user";
+        return "/owner/update-user";
     }
 
     @GetMapping("/add-balance")
@@ -77,7 +78,7 @@ public class UserController {
         Long userId = (Long) session.getAttribute("userId");
         UserResponse user = userService.findById(userId);
         model.addAttribute("money", user.getBalance());
-        return "balance";
+        return "/user/balance";
     }
 
     @GetMapping("/user-profile")
@@ -105,7 +106,7 @@ public class UserController {
         }
         Double v = userService.addBalance(amount, userId);
         model.addAttribute("money", v);
-        return "/balance";
+        return "/user/balance";
     }
 
     @PostMapping( "/update-user")
@@ -113,31 +114,31 @@ public class UserController {
         userService.update(updatedUser,userID);
         List<UserResponse> users = userService.findByRole(updatedUser.getRole());
         model.addAttribute("users", users);
-        return "show-users";
+        return "/owner/show-users";
     }
 
     @PostMapping("/UnBlock-user")
     public String unBlockUser(@RequestParam(name = "userId") Long userID , Model model) {
         userService.unblockUser(userID);
-        return "owner-page";
+        return "/owner/owner-page";
     }
 
     @PostMapping("/block-user")
     public String blockUser(@RequestParam(name = "userId") Long userID , Model model) {
         userService.blockUser(userID);
-        return "owner-page";
+        return "owner/owner-page";
     }
 
-    @GetMapping("/get-blocked-users")
-    public String getBlockedUsers(Model model) {
-        List<UserResponse> blockedUsers = userService.getBlockedUsers();
-        model.addAttribute("blockedUsers", blockedUsers);
-        return "blocked-users";
-    }
+//    @GetMapping("/get-blocked-users")
+//    public String getBlockedUsers(Model model) {
+//        List<UserResponse> blockedUsers = userService.getBlockedUsers();
+//        model.addAttribute("blockedUsers", blockedUsers);
+//        return "/blocked-users";
+//    }
 
     @GetMapping("/search-user")
     public String searchUser() {
-        return "search-users";
+        return "/owner/search-users";
     }
 
 
@@ -146,7 +147,7 @@ public class UserController {
     public String searchUser(UserSearchRequest userSearchRequest, Model model) {
         List<UserResponse> userResponses = userService.searchUser(userSearchRequest);
         model.addAttribute("users", userResponses);
-        return "search-users";
+        return "/owner/search-users";
     }
 
 
