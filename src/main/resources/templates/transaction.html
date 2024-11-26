@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car and Transaction Details</title>
+  <link rel="stylesheet" href="/css/transaction.css"> <!-- CSS faylni ulash -->
+  <!-- Bootstrap CSS ulash -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container mt-5">
+  <!-- Back Button -->
+  <div class="position-absolute" style="top: 10px; right: 10px;">
+    <a href="/api/user/return2">
+      <button class="btn btn-primary">Back</button>
+    </a>
+  </div>
+
+  <h4 class="mt-4">Car and Transaction Details</h4>
+
+  <div class="row">
+    <!-- Car Details Section -->
+    <div class="col-md-6">
+      <div>
+        <img th:if="${#lists.size(car.imagePaths) > 0}"
+             th:src="@{${car.imagePaths[0]}}"
+             alt="Car Image"
+             class="img-fluid rounded shadow-sm" style="max-height: 250px; object-fit: cover;" />
+        <p th:if="${#lists.size(car.imagePaths) == 0}" class="text-muted">No images available</p>
+      </div>
+      <ul class="list-group mt-3">
+        <li class="list-group-item"><b>Model:</b> <span th:text="${car.model}">Car Model</span></li>
+        <li class="list-group-item"><b>Brand:</b> <span th:text="${car.brand}">Car Brand</span></li>
+        <li class="list-group-item"><b>Price:</b> $<span th:text="${car.price}">20000</span></li>
+        <li class="list-group-item"><b>Status:</b> <span th:text="${car.status}">Available</span></li>
+      </ul>
+      <ul class="list-group mt-3">
+        <li class="list-group-item"><b>Owner Name:</b> <span th:text="${car.ownerName}">Owner Name</span></li>
+        <li class="list-group-item"><b>Owner Email:</b> <span th:text="${car.ownerEmail}">owner@example.com</span></li>
+        <li class="list-group-item"><b>Owner Address:</b> <span th:text="${car.ownerAddress}">Owner address</span></li>
+        <li class="list-group-item"><b>Owner Phone:</b> <span th:text="${car.ownerEmail}">Owner phone</span></li>
+      </ul>
+    </div>
+
+    <!-- Transaction Details Section -->
+    <div class="col-md-6">
+      <h5>Create a New Transaction</h5>
+      <form action="/api/transaction/create" method="POST">
+        <!-- Hidden carId -->
+        <input type="hidden" id="carId" name="carId" th:value="${car.id}" />
+
+        <!-- Amount Field (Filled with car.price) -->
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount:</label>
+          <input type="number" id="amount" name="amount" class="form-control"
+                 th:value="${car.price}" readonly />
+        </div>
+
+        <!-- Payment Method Field -->
+        <div class="mb-3">
+          <label for="paymentMethod" class="form-label">Payment Method:</label>
+          <select id="paymentMethod" name="paymentMethod" class="form-select" required>
+            <option th:each="method : ${paymentMethod}" th:value="${method}" th:text="${method}"></option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success">Create Transaction</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

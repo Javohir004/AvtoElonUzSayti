@@ -13,16 +13,19 @@ import java.time.LocalDateTime;
 @Builder
 public class TransactionRequest {
 
-    private double amount; // To'lov miqdori
+    private double amount;
 
-    private LocalDateTime transactionDate; // Tranzaksiya sanasi
+    private LocalDateTime transactionDate;
 
-    private PaymentMethod paymentMethod; // To'lov usuli (masalan, bank kartasi)
+    private PaymentMethod paymentMethod;
 
-    private TransactionStatus status;
+    private TransactionStatus status = TransactionStatus.INITIATED;
 
-    // Sotilgan mashinaga bog'lash
     private Long carId;
+
+    private Long sellerId;
+
+    private Long buyerId;
 
 
 }

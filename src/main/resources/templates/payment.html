@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make Payment</title>
+  <link rel="stylesheet" href="/css/payment.css">
+</head>
+<body>
+<h1>Make a Payment</h1>
+
+<form action="/api/payment/create" method="POST">
+  <label for="transactionId">Transaction ID:</label>
+  <!-- `th:value` atributi bilan modeldan olingan transactionId ni ko'rsatish -->
+  <input type="number" id="transactionId" name="transactionId" th:value="${transactionId}" readonly><br><br>
+
+  <input type="hidden" name="carId" th:value="${carId}">
+
+  <label for="amount">Amount:</label>
+  <!-- `th:value` atributi bilan modeldan olingan amount ni ko'rsatish -->
+  <input type="number" id="amount" name="amount" th:value="${amount}" step="0.01" readonly><br><br>
+
+  <label for="paymentMethod">Payment Method:</label>
+  <select id="paymentMethod" name="paymentMethod" required>
+    <option value="CASH">Cash</option>
+    <option value="CARD">Card</option>
+    <option value="ONLINE">Online</option>
+  </select><br><br>
+
+  <button type="submit">Make Payment</button>
+
+  <!-- Cancel Button -->
+  <form action="/api/payment/cancel" method="POST" style="display:inline-block; margin-left:10px;">
+    <input type="hidden" name="carId" th:value="${carId}">
+    <input type="hidden" name="transactionId" th:value="${transactionId}">
+    <button type="submit" style="background-color: red; color: white;">Cancel</button>
+  </form>
+</form>
+
+</body>
+</html>

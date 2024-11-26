@@ -40,4 +40,8 @@ public class Transaction extends BaseEntity {
     private User seller;
 
 
+    @ManyToOne
+    @JoinColumn(name = "buyer_id", nullable = false) // Sotuvchi
+    private User buyer;
+
 }

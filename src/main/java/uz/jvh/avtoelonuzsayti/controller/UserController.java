@@ -129,6 +129,8 @@ public class UserController {
         return "owner/owner-page";
     }
 
+
+
 //    @GetMapping("/get-blocked-users")
 //    public String getBlockedUsers(Model model) {
 //        List<UserResponse> blockedUsers = userService.getBlockedUsers();

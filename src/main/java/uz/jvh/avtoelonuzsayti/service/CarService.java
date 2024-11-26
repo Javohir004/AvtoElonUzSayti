@@ -20,7 +20,6 @@ public class CarService {
     @Autowired
     private UserRepository userRepository;
 
-
     public Car save(CarRequest carRequest) {
         Car car = mapToCar(carRequest);
         carRepository.save(car);
@@ -32,6 +31,12 @@ public class CarService {
         return byOwnerId.stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
+    }
+
+    public CarResponse findCarById(Long id) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Car not found"));
+        return mapToResponse(car);
     }
 
     public List<CarResponse> getAllCars() {
@@ -57,6 +62,7 @@ public class CarService {
         carResponse.setImagePaths(car.getImagePaths());
 
         User owner = car.getOwner();
+        carResponse.setOwnerId(owner.getId());
         carResponse.setOwnerName(owner.getUsername());
         carResponse.setOwnerEmail(owner.getEmail());
         carResponse.setOwnerPhone(owner.getPhoneNumber());
@@ -64,6 +70,19 @@ public class CarService {
         return carResponse;
     }
 
+    public CarResponse sellCar(Long oldOwnerId , Long newOwnerId , double price) {
+
+        Car car = carRepository.findCarByOwnerIdAndPriceAndIsActiveTrue(oldOwnerId, price)
+                .orElseThrow(() -> new RuntimeException("Car not found"));
+
+        User user = userRepository.findById(newOwnerId).
+                orElseThrow(() -> new RuntimeException("User not found"));
+
+        car.setOwner(user);
+        car.setStatus(CarStatus.SOLD);
+        carRepository.save(car);
+        return mapToResponse(car);
+    }
 
     private Car mapToCar(CarRequest carRequest) {
         User byId = userRepository.findById(carRequest.getOwnerId())

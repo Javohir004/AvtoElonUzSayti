@@ -31,6 +31,7 @@ public class CarResponse {
     private List<String> imagePaths = new ArrayList<>();
 
 
+    private Long ownerId;
     private String ownerName;
     private String ownerEmail;
     private String ownerPhone;
