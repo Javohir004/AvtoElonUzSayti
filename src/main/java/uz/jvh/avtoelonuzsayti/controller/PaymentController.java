@@ -39,13 +39,10 @@ public class PaymentController {
                          @RequestParam(name = "paymentMethod") String paymentMethod,
                          HttpSession session, Model model) {
 
+
+        try {
             Long ownerId = carService.findCarById(carId).getOwnerId();
             Long userId = (Long) session.getAttribute("userId");
-
-        System.out.println(carId);
-        System.out.println(ownerId);
-        System.out.println(userId);
-        try {
             PaymentRequest payment = new PaymentRequest();
             payment.setTransactionId(transactionId);
             payment.setAmount(amount);

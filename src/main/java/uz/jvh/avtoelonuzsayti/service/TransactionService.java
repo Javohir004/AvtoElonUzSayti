@@ -2,6 +2,7 @@ package uz.jvh.avtoelonuzsayti.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uz.jvh.avtoelonuzsayti.domain.entity.Car;
 import uz.jvh.avtoelonuzsayti.domain.entity.Transaction;
 import uz.jvh.avtoelonuzsayti.domain.entity.User;
@@ -34,12 +35,31 @@ public class TransactionService {
         return mapToResponse(save);
     }
 
-    public TransactionResponse Complete(Long transactionId , TransactionStatus status) {
+    @Transactional
+    public TransactionResponse Complete(Long transactionId, TransactionStatus status) {
         Transaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new RuntimeException("Transaction not found"));
+
+        System.out.println("Transaction ID: " + transactionId);
+        System.out.println("Setting Status to: " + status);
+
         transaction.setStatus(status);
-        transactionRepository.save(transaction);
-        return mapToResponse(transaction);
+        Transaction savedTransaction = transactionRepository.save(transaction);
+
+        return mapToResponse(savedTransaction);
+    }
+
+    @Transactional
+    public TransactionResponse cancel(Long transactionId) {
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+        System.out.println("Transaction ID: " + transactionId);
+        System.out.println("Setting Status to: " + transaction.getStatus());
+
+        transaction.setStatus(TransactionStatus.CANCELLED);
+        Transaction savedTransaction = transactionRepository.save(transaction);
+
+        return mapToResponse(savedTransaction);
     }
 
 
