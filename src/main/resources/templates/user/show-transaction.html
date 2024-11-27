@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Transactions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+    <style>
+        /* Fixing the back button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        /* Add padding-top to prevent the content from hiding under the fixed back button */
+        .container {
+            padding-top: 80px; /* Adjust based on button size */
+        }
+
+        /* Styling the table */
+        table {
+            font-size: 16px;
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .btn-back {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            font-size: 1.25rem;
+        }
+
+        .transaction-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .transaction-info p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">User Transactions</h1>
+
+    <!-- Displaying the transactions in a card layout -->
+    <div class="card">
+        <div class="card-header">
+            <strong>Transactions List</strong>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Amount</th>
+                    <th>Transaction Date</th>
+                    <th>Payment Method</th>
+                    <th>Status</th>
+                    <th>Car</th>
+                    <th>Seller Info</th>
+                    <th>Buyer Info</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Loop through the transactions and display them -->
+                <tr th:each="transaction : ${transactionsByOwnerId}">
+                    <td th:text="${transaction.id}"></td>
+                    <td th:text="${transaction.amount}"></td>
+                    <td th:text="${transaction.transactionDate}"></td>
+                    <td th:text="${transaction.paymentMethod}"></td>
+                    <td th:text="${transaction.status}"></td>
+                    <td th:text="${transaction.car.model}"></td> <!-- Car model -->
+                    <td class="transaction-info">
+                        <p><strong>Seller:</strong> <span th:text="${transaction.sellerName}"></span></p>
+                        <p><strong>Email:</strong> <span th:text="${transaction.sellerEmail}"></span></p>
+                        <p><strong>Phone:</strong> <span th:text="${transaction.sellerPhone}"></span></p>
+                    </td>
+                    <td class="transaction-info">
+                        <p><strong>Buyer:</strong> <span th:text="${transaction.buyerName}"></span></p>
+                        <p><strong>Email:</strong> <span th:text="${transaction.buyerEmail}"></span></p>
+                        <p><strong>Phone:</strong> <span th:text="${transaction.buyerPhone}"></span></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Back button in the upper right corner -->
+<div class="back-button">
+    <a href="/api/user/return2" class="btn btn-back">Back</a>
+</div>
+
+<!-- Bootstrap JS (optional for further styling and interactivity) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

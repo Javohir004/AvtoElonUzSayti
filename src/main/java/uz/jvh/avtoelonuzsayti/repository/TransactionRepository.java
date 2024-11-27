@@ -16,4 +16,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     /** Bu sotib olgan odam **/
     List<Transaction> findAllByCar_Owner_Id(Long ownerId);
+
+    List<Transaction> findAllBySeller_IdOrCar_Owner_Id(Long userId1, Long userId2);
+
 }

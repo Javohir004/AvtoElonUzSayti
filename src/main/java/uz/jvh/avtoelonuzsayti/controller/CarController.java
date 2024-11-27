@@ -1,5 +1,4 @@
 package uz.jvh.avtoelonuzsayti.controller;
-
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import uz.jvh.avtoelonuzsayti.domain.request.CarRequest;
 import uz.jvh.avtoelonuzsayti.domain.response.CarResponse;
 import uz.jvh.avtoelonuzsayti.service.CarService;
 import uz.jvh.avtoelonuzsayti.service.UserService;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -67,12 +65,63 @@ public class CarController {
     }
 
 
+    @GetMapping("/update")
+    public String updateCar(@RequestParam(name = "carId") Long carId, Model model) {
+        CarResponse carById = carService.findCarById(carId);
+        model.addAttribute("CarBrand", CarBrand.values());
+        model.addAttribute("Transmission", Transmission.values());
+        model.addAttribute("car", carById);
+        return "/car/update-car";
+    }
+
+    @PostMapping("/update")
+    public String updateCar(@RequestParam(name = "carId") Long carId ,
+                            CarRequest carRequest,
+                            @RequestParam("images") MultipartFile[] files,
+                            Model model , HttpSession session) {
+
+        List<String> imagePaths = new ArrayList<>();
+
+        String uploadDir = "src/main/resources/static/carsImages/";
+        for (MultipartFile file : files) {
+            try {
+                String uniqueFileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                Path filePath = Paths.get(uploadDir + uniqueFileName);
+
+                Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                imagePaths.add("/carsImages/" + uniqueFileName);
+            } catch (IOException e) {
+                throw new RuntimeException("Faylni yuklashda xatolik: " + e.getMessage());
+            }
+        }
+        carRequest.setImagePaths(imagePaths);
+        carService.update(carRequest , carId);
+
+        Long userId = (Long) session.getAttribute("userId");
+        List<CarResponse> cars = carService.findCarByOwnerID(userId);  // Bitta mashina olish
+        model.addAttribute("cars", cars);
+
+        return "/car/show-cars";
+    }
+
+    @PostMapping("/delete")
+    public String deleteCar(@RequestParam(name = "carId") Long carId, Model model , HttpSession session) {
+        carService.delete(carId);
+
+        Long userId = (Long) session.getAttribute("userId");
+        List<CarResponse> cars = carService.findCarByOwnerID(userId);  // Bitta mashina olish
+        model.addAttribute("cars", cars);
+
+        return "/car/show-cars";
+    }
+
+
 
     @GetMapping("/show-car-by-id")
     public String getCarDetails(Model model , HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
         List<CarResponse> cars = carService.findCarByOwnerID(userId);  // Bitta mashina olish
-        model.addAttribute("cars", cars); // Modelga qo'shish
+        model.addAttribute("cars", cars);// Modelga qo'shish
         return "/car/show-cars"; // car-details.html sahifasini ko'rsatish
     }
 

@@ -18,6 +18,8 @@ import uz.jvh.avtoelonuzsayti.domain.response.TransactionResponse;
 import uz.jvh.avtoelonuzsayti.service.CarService;
 import uz.jvh.avtoelonuzsayti.service.TransactionService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/api/transaction")
 @AllArgsConstructor
@@ -59,7 +61,13 @@ public class TransactionController {
     }
 
 
-
+    @GetMapping("/transaction-by-ownerId")
+    public String transactionByOwnerId(Model model , HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        List<TransactionResponse> transactionsByOwnerId = transactionService.getTransactionsByOwnerId(userId);
+        model.addAttribute("transactionsByOwnerId", transactionsByOwnerId);
+        return "/user/show-transaction";
+    }
 
 
 }

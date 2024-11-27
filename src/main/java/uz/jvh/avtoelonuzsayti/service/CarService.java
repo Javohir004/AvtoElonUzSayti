@@ -39,6 +39,31 @@ public class CarService {
         return mapToResponse(car);
     }
 
+    public CarResponse update(CarRequest carRequest , Long carId) {
+        Car car = carRepository.findById(carId)
+                .orElseThrow(() -> new RuntimeException("Car not found"));
+
+        car.setStatus(carRequest.getStatus());
+        car.setBrand(carRequest.getBrand());
+        car.setModel(carRequest.getModel());
+        car.setRuns(carRequest.getRuns());
+        car.setNotes(carRequest.getNotes());
+        car.setPrice(carRequest.getPrice());
+        car.setTransmission(carRequest.getTransmission());
+        car.setHorsePower(carRequest.getHorsePower());
+        car.setImagePaths(carRequest.getImagePaths());
+        car.setEngineV(carRequest.getEngineV());
+        car.setCreatedYear(carRequest.getCreatedYear());
+        carRepository.save(car);
+        return mapToResponse(car);
+    }
+
+    public void delete(Long id) {
+        Car car = carRepository.findById(id).orElseThrow(() -> new RuntimeException("Car not found"));
+        car.setActive(false);
+        carRepository.save(car);
+    }
+
     public List<CarResponse> getAllCars() {
         List<Car> cars = carRepository.findCarsByStatusAndIsActiveTrue(CarStatus.AVAILABLE);
         return cars.stream()
@@ -75,10 +100,18 @@ public class CarService {
         Car car = carRepository.findCarByOwnerIdAndPriceAndIsActiveTrue(oldOwnerId, price)
                 .orElseThrow(() -> new RuntimeException("Car not found"));
 
-        User user = userRepository.findById(newOwnerId).
+        User newUser = userRepository.findById(newOwnerId).
                 orElseThrow(() -> new RuntimeException("User not found"));
+        newUser.setBalance(newUser.getBalance() + price);
+        userRepository.save(newUser);
 
-        car.setOwner(user);
+
+        User oldOwner = userRepository.findById(oldOwnerId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        oldOwner.setBalance(oldOwner.getBalance() - price);
+        userRepository.save(oldOwner);
+
+        car.setOwner(newUser);
         car.setStatus(CarStatus.SOLD);
         carRepository.save(car);
         return mapToResponse(car);

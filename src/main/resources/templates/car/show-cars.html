@@ -11,13 +11,11 @@
 <!-- Main Container -->
 <div class="container mt-5">
   <!-- Back Button placed at the top-right corner -->
-  <div class="position-absolute" style="top: 10px; right: 10px;">
+  <div class="position-fixed" style="top: 10px; right: 10px;">
     <a href="/api/user/return2">
       <button class="btn btn-primary">Back</button>
     </a>
   </div>
-
-<!--  <h1 class="text-center">Car Details</h1>-->
 
   <!-- Iterate through the list of cars -->
   <div th:each="car : ${cars}" class="">
@@ -30,7 +28,7 @@
         <div>
           <img th:if="${#lists.size(car.imagePaths) > 0}"
                th:src="@{${car.imagePaths[0]}}"
-               alt=""
+               alt="Car Image"
                class="img-fluid rounded shadow-sm" />
           <p th:if="${#lists.size(car.imagePaths) == 0}" class="text-muted">No images available</p>
         </div>
@@ -41,7 +39,8 @@
         <h4>More Images</h4>
         <div id="car-image-gallery" class="row">
           <div th:each="imagePath : ${car.imagePaths}" class="col-4 mb-3">
-            <img th:src="@{${imagePath}}" alt="Car Image" class="img-thumbnail" style="cursor: pointer;" onclick="changeMainImage(this)" />          </div>
+            <img th:src="@{${imagePath}}" alt="Car Image" class="img-thumbnail" style="cursor: pointer;" onclick="changeMainImage(this)" />
+          </div>
         </div>
       </div>
     </div>
@@ -74,8 +73,23 @@
           <li class="list-group-item"><b>Phone:</b> <span th:text="${car.ownerPhone}">+123456789</span></li>
           <li class="list-group-item"><b>Address:</b> <span th:text="${car.ownerAddress}">Owner Address</span></li>
         </ul>
+        <!-- Update and Delete Buttons placed after Owner Information -->
+        <div class="d-flex justify-content-end mt-4">
+          <!-- Update Button -->
+          <form th:action="@{/api/car/update}" method="get">
+            <input type="hidden" name="carId" th:value="${car.id}">
+            <button type="submit" class="btn btn-warning">Update</button>
+          </form>
+          <!-- Delete Button -->
+          <form th:action="@{/api/car/delete}" method="post">
+            <input type="hidden" name="carId" th:value="${car.id}">
+            <button type="submit" class="btn btn-danger ms-2">Delete</button>
+          </form>
+        </div>
       </div>
     </div>
+
+
 
   </div>
 

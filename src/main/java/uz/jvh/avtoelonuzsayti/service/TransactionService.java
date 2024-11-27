@@ -13,6 +13,9 @@ import uz.jvh.avtoelonuzsayti.repository.CarRepository;
 import uz.jvh.avtoelonuzsayti.repository.TransactionRepository;
 import uz.jvh.avtoelonuzsayti.repository.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TransactionService {
 
@@ -49,17 +52,12 @@ public class TransactionService {
         return mapToResponse(savedTransaction);
     }
 
-    @Transactional
-    public TransactionResponse cancel(Long transactionId) {
-        Transaction transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new RuntimeException("Transaction not found"));
-        System.out.println("Transaction ID: " + transactionId);
-        System.out.println("Setting Status to: " + transaction.getStatus());
 
-        transaction.setStatus(TransactionStatus.CANCELLED);
-        Transaction savedTransaction = transactionRepository.save(transaction);
-
-        return mapToResponse(savedTransaction);
+    public List<TransactionResponse> getTransactionsByOwnerId(Long ownerId) {
+        List<Transaction> allBySellerIdOrCarOwnerId = transactionRepository.findAllBySeller_IdOrCar_Owner_Id(ownerId, ownerId);
+        return allBySellerIdOrCarOwnerId.stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
 
@@ -73,6 +71,7 @@ public class TransactionService {
         return mapToResponse(save);
     }
 
+
     public TransactionResponse delete(Long id) {
         Transaction transaction = transactionRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("Transaction with ID not found"));
@@ -80,6 +79,7 @@ public class TransactionService {
         transactionRepository.save(transaction);
         return mapToResponse(transaction);
     }
+
 
     public Transaction findById(Long id) {
         return transactionRepository.findById(id)
@@ -94,6 +94,14 @@ public class TransactionService {
         transactionResponse.setAmount(transaction.getAmount());
         transactionResponse.setTransactionDate(transaction.getTransactionDate());
         transactionResponse.setPaymentMethod(transaction.getPaymentMethod());
+
+        transactionResponse.setSellerName(transaction.getSeller().getUsername());
+        transactionResponse.setSellerEmail(transaction.getSeller().getEmail());
+        transactionResponse.setSellerPhone(transaction.getSeller().getPhoneNumber());
+
+        transactionResponse.setBuyerName(transaction.getBuyer().getUsername());
+        transactionResponse.setBuyerEmail(transaction.getBuyer().getEmail());
+        transactionResponse.setBuyerPhone(transaction.getBuyer().getPhoneNumber());
         return transactionResponse;
     }
 

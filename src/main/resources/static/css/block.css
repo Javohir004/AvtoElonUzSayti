@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../photo/background_16_9_image.jpg'); /* Rasmni fon sifatida qo'yish */
+    background-size: cover; /* Fonni butun sahifaga yoyish */
+    background-position: center; /* Fonni markazlashtirish */
+    background-repeat: no-repeat; /* Rasmni qayta takrorlamaslik */
+    display: flex;
+    justify-content: flex-start; /* Chapga joylashtirish */
+    align-items: flex-start; /* Yozuvlarni yuqoriga joylashtirish */
+    height: 100vh;
+    position: relative;
+    padding-top: 40px; /* Sahifaning yuqori qismiga bo'shliq qo'shish */
+    padding-left: 20px; /* Chap tomonga bo'shliq qo'shish */
+}
+
+.container {
+    text-align: left; /* Yozuvlarni chapga joylashtirish */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px; /* O'lchamni cheklash */
+}
+
+.message-box {
+    padding: 30px;
+}
+
+.blocked-title {
+    font-size: 32px;
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.blocked-text {
+    font-size: 18px;
+    color: #fff; /* Yozuvni oq rangda qilish */
+    line-height: 1.5;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #2980b9;
+}

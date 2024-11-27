@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import uz.jvh.avtoelonuzsayti.domain.enums.UserState;
 import uz.jvh.avtoelonuzsayti.domain.request.LoginDto;
 import uz.jvh.avtoelonuzsayti.domain.request.UserCreateDTO;
 import uz.jvh.avtoelonuzsayti.domain.response.UserResponse;
@@ -50,6 +51,9 @@ public class AuthController {
     public String login(LoginDto loginDto, HttpSession session) {
         UserResponse login = userService.login(loginDto);
         if (login != null && loginDto.getPassword().equals(login.getPassword())) {
+            if(login.getUserState() == UserState.BLOCKED){
+                return "block-page";
+            }
             session.setAttribute("userId", login.getId());
             if (login.getRole() == UserRole.OWNER) {
                 return "/owner/owner-page";
@@ -63,18 +67,4 @@ public class AuthController {
     }
 
 
-//    @PostMapping("/login")
-//    public String login(LoginDto loginDto , HttpSession session) {
-//        UserResponse user = userService.login(loginDto);
-//        session.setAttribute("userId", user.getId());
-//
-//        if(user.getRole() == UserRole.OWNER){
-//            return "owner-page";
-//        }else if(user.getRole() == UserRole.ADMIN){
-//            return "admin-page";
-//        } else if (user.getRole() == UserRole.USER) {
-//            return "user/user-menu";
-//        }
-//        return "home-page";
-//    }
 }

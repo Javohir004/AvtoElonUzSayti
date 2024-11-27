@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Car</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <!-- Back Button -->
+    <div class="position-fixed" style="top: 10px; right: 10px;">
+        <a href="/api/user/return2">
+            <button class="btn btn-primary">Back</button>
+        </a>
+    </div>
+
+    <!-- Form Header -->
+    <h1 class="text-center mb-4">Update Car</h1>
+
+    <!-- Car Update Form -->
+    <form th:action="@{/api/car/update(carId=${car.id})}" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-md-6">
+                <!-- Car Model -->
+                <div class="mb-3">
+                    <label for="model" class="form-label"><b>Model</b></label>
+                    <input type="text" id="model" name="model" class="form-control" th:value="${car.model}" required>
+                </div>
+
+                <!-- Car Brand -->
+                <div class="mb-3">
+                    <label for="brand" class="form-label"><b>Brand</b></label>
+                    <select id="brand" name="brand" class="form-select">
+                        <option th:each="brand : ${CarBrand}" th:value="${brand}" th:text="${brand}"
+                                th:selected="${car.brand == brand}">Brand</option>
+                    </select>
+                </div>
+
+                <!-- Transmission -->
+                <div class="mb-3">
+                    <label for="transmission" class="form-label"><b>Transmission</b></label>
+                    <select id="transmission" name="transmission" class="form-select">
+                        <option th:each="trans : ${Transmission}" th:value="${trans}" th:text="${trans}"
+                                th:selected="${car.transmission == trans}">Transmission</option>
+                    </select>
+                </div>
+
+                <!-- Horse Power -->
+                <div class="mb-3">
+                    <label for="horsePower" class="form-label"><b>Horse Power</b></label>
+                    <input type="text" id="horsePower" name="horsePower" class="form-control" th:value="${car.horsePower}" required>
+                </div>
+
+                <!-- Engine Volume -->
+                <div class="mb-3">
+                    <label for="engineV" class="form-label"><b>Engine Volume</b></label>
+                    <input type="text" id="engineV" name="engineV" class="form-control" th:value="${car.engineV}" required>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-6">
+                <!-- Created Year -->
+                <div class="mb-3">
+                    <label for="createdYear" class="form-label"><b>Created Year</b></label>
+                    <input type="date" id="createdYear" name="createdYear" class="form-control" th:value="${car.createdYear}" required>
+                </div>
+
+                <!-- Runs -->
+                <div class="mb-3">
+                    <label for="runs" class="form-label"><b>Runs</b></label>
+                    <input type="number" id="runs" name="runs" class="form-control" th:value="${car.runs}" required>
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label"><b>Price</b></label>
+                    <input type="number" step="0.01" id="price" name="price" class="form-control" th:value="${car.price}" required>
+                </div>
+
+                <!-- Notes -->
+                <div class="mb-3">
+                    <label for="notes" class="form-label"><b>Notes</b></label>
+                    <textarea id="notes" name="notes" class="form-control" rows="4" th:text="${car.notes}"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label for="images">Upload Images:</label>
+            <input type="file" id="images" name="images" multiple accept="image/*" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success">Update Car</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

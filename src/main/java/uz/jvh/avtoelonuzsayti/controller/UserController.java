@@ -73,6 +73,16 @@ public class UserController {
         return "/owner/update-user";
     }
 
+
+    @PostMapping( "/update-user")
+    public String update(@RequestParam(name = "userId") Long userID , UserCreateDTO updatedUser, Model model) {
+        userService.update(updatedUser,userID);
+        List<UserResponse> users = userService.findByRole(updatedUser.getRole());
+        model.addAttribute("users", users);
+        return "/owner/show-users";
+    }
+
+
     @GetMapping("/add-balance")
     public String addBalance(Model model, HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
@@ -109,13 +119,6 @@ public class UserController {
         return "/user/balance";
     }
 
-    @PostMapping( "/update-user")
-    public String update(@RequestParam(name = "userId") Long userID , UserCreateDTO updatedUser, Model model) {
-        userService.update(updatedUser,userID);
-        List<UserResponse> users = userService.findByRole(updatedUser.getRole());
-        model.addAttribute("users", users);
-        return "/owner/show-users";
-    }
 
     @PostMapping("/UnBlock-user")
     public String unBlockUser(@RequestParam(name = "userId") Long userID , Model model) {

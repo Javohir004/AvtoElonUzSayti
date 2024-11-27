@@ -25,4 +25,12 @@ public class TransactionResponse {
 
     private Car car;
 
+    private String sellerName;
+    private String sellerEmail;
+    private String sellerPhone;
+
+    private String buyerName;
+    private String buyerEmail;
+    private String buyerPhone;
+
 }
