@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import uz.jvh.avtoelonuzsayti.domain.enums.CarBrand;
 import uz.jvh.avtoelonuzsayti.domain.enums.Transmission;
 import uz.jvh.avtoelonuzsayti.domain.request.CarRequest;
@@ -105,14 +106,14 @@ public class CarController {
     }
 
     @PostMapping("/delete")
-    public String deleteCar(@RequestParam(name = "carId") Long carId, Model model , HttpSession session) {
+    public ModelAndView deleteCar(@RequestParam(name = "carId") Long carId, Model model , HttpSession session) {
         carService.delete(carId);
 
         Long userId = (Long) session.getAttribute("userId");
         List<CarResponse> cars = carService.findCarByOwnerID(userId);  // Bitta mashina olish
         model.addAttribute("cars", cars);
 
-        return "/car/show-cars";
+        return new ModelAndView("/car/show-cars");
     }
 
 
